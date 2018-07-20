@@ -9,7 +9,7 @@ const { BigNumber } = require('@0xproject/utils');
 const Constants = require('./constants');
 const fetch = require("node-fetch");
 
-class FetchTradeData {
+class TradeService {
 
     constructor(web3, fiatCurrencyInfo) {
         this._web3Wrapper = new Web3Wrapper(web3.currentProvider, {});
@@ -93,6 +93,10 @@ class FetchTradeData {
 /*        /!* Call fetching callback with done *!/
         this._callbacks.onFetching(this._trades.length, true);*/
 
+    }
+
+    getTradeData() {
+        return this._trades;
     }
 
     async fetchPastTrades(count) {
@@ -418,4 +422,4 @@ class PriceVolumeHistory {
     }
 }
 
-module.exports = FetchTradeData;
+module.exports = TradeService;

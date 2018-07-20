@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>0x Dashboard</title>
+    <link href="./public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./public/css/fontello-embedded.css" rel="stylesheet">
+    <link href="./public/css/animation.css" rel="stylesheet">
+    <link href="./public/css/app.css" rel="stylesheet">
+</head>
+<body>
+<div id="root">
+    <div class="row">
+        <table class="table table-responsive table-condensed table-sm recent-trades">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Time (<span class="time-utc" style="display:none">UTC</span><span class="time-local">Local</span><i class="icon-exchange time-switch"></i>)</th>
+                <th>Txid</th>
+                <th>Trade</th>
+                <th>Price (<i class="icon-exchange price-invert"></i>)</th>
+                <th>Relay</th>
+                <th>Maker Fee</th>
+                <th>Taker Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="text-center">
+            <button type="button" class="btn btn-sm btn-info recent-trades-fetch-more" disabled>Fetch more...</button>
+        </div>
+    </div>
+</div>
+
+<script src="./public/drawTrades.js"></script>
+<script src="./public/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/7.2.1/bignumber.min.js" ></script>
+</body>
+</html>

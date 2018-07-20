@@ -22,8 +22,6 @@
     "moment": "^2.22.0",
     "node-fetch": "^2.1.2",
     "popper.js": "^1.14.2",
-    "socket.io": "^2.1.1",
-    "typescript": "^2.8.1",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "web3": "^0.20.6",
     "web3-provider-engine": "^13.8.0",

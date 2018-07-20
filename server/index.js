@@ -2,11 +2,9 @@ const express = require('express');
 const Constants = require('./constants');
 const Web3 = require('web3');
 const path = require('path');
-const Logger = require('./logger');
-const FetchTradeData = require('./fetchTradeData');
+const TradeService = require('./tradeService');
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+
 
 
 /******************************************************************************/
@@ -34,15 +32,9 @@ function ZeroClientProvider(opts) {
 }
 
 /* Look up currency */
-let paramDebug = process.env.DEBUG;
 let paramCurrency = process.env.CURRENCY || Constants.FIAT_CURRENCY_DEFAULT;
 const port = process.env.PORT || 8080;
 
-if (paramDebug) {
-    Logger.enable();
-} else {
-    Logger.disable();
-}
 
 let fiatCurrencyInfo = Constants.FIAT_CURRENCY_MAP[paramCurrency] || Constants.FIAT_CURRENCY_MAP[Constants.FIAT_CURRENCY_DEFAULT];
 
@@ -51,23 +43,29 @@ let fiatCurrencyInfo = Constants.FIAT_CURRENCY_MAP[paramCurrency] || Constants.F
 let web3 = new Web3(ZeroClientProvider({getAccounts: (cb) => { cb(null, []); }, rpcUrl: Constants.INFURA_API_URL}));
 
 // app.use('/api', [authController]);
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
-app.get('/',function(req,res){
-    res.sendFile(path.join(__dirname, '../client/index.html'));
+app.get('/', function(req,res){
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
-    });
+app.get('/trades', function(req,res){
+
+    res.json({
+        success: true,
+        trades: tradeService.getTradeData()
+    })
 });
+
+
+let tradeService;
 
 app.listen(port, function () {
 
     console.log('Listening on:', port);
 
-    const fetchData = new FetchTradeData(web3, fiatCurrencyInfo);
+    tradeService = new TradeService(web3, fiatCurrencyInfo);
 
-    fetchData.init();
+    tradeService.init();
 });
+
