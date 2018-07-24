@@ -15,6 +15,7 @@
     "@types/node": "^9.6.2",
     "awesome-typescript-loader": "^3.5.0",
     "bootstrap": "^4.0.0",
+    "cors": "^2.8.4",
     "chart.js": "^2.7.2",
     "express": "^4.16.3",
     "get-json": "^1.0.0",
