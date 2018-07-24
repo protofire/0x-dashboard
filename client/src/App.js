@@ -97,7 +97,6 @@ class App extends Component {
         </header>
 
         {this.state.trades && this.state.trades.length &&
-          <
           <ReactGridLayout  className="layout" layout={layout} cols={7} rowHeight={30} width={1200}>
             <div key={"a"}>
               <div><b>Time (Local)</b></div>
