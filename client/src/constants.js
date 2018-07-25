@@ -730,6 +730,36 @@ export default  {
             "decimals": 18,
             "website": "https://electrify.asia/",
         },
+        "0x923108a439c4e8c2315c4f6521e5ce95b44e9b4c": {
+            "name": "Devery.io",
+            "symbol": "EVE",
+            "decimals": 18,
+            "website": "https://devery.io/",
+        },
+        "0x05f4a42e251f2d52b8ed15e9fedaacfcef1fad27": {
+            "name": "Zilliqa",
+            "symbol": "ZIL",
+            "decimals": 18,
+            "website": "https://www.zilliqa.com/",
+        },
+        "0x543ff227f64aa17ea132bf9886cab5db55dcaddf": {
+            "name": "DAOstack",
+            "symbol": "GEN",
+            "decimals": 18,
+            "website": "https://daostack.io/",
+        },
+        "0xd0929d411954c47438dc1d871dd6081f5c5e149c": {
+            "name": "Refereum",
+            "symbol": "RFR",
+            "decimals": 18,
+            "website": "https://refereum.com/",
+        },
+        "0xa4e8c3ec456107ea67d3075bf9e3df3a75823db0": {
+            "name": "Loom",
+            "symbol": "LOOM",
+            "decimals": 18,
+            "website": "https://loomx.io/",
+        },
     },
     NETWORK_BLOCK_EXPLORER: {
         1: "https://etherscan.io",
