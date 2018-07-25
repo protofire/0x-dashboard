@@ -1,4 +1,5 @@
 export default  {
+    DEFAULT_NETWORK_ID: 1,
     ZEROEX_TOKEN_INFOS: {
         /* Token infos from the registry */
         "0xe41d2489571d322189246dafa5ebde1f4699f498": {
@@ -13,11 +14,17 @@ export default  {
             "decimals": 18,
             "website": "https://weth.io",
         },
-        "0xe94327d07fc17907b4db788e5adf2ed424addff6": {
+        "0x1985365e9f78359a9B6AD760e32412f4a445E862": {
             "name": "Augur Reputation Token",
             "symbol": "REP",
             "decimals": 18,
             "website": "https://augur.net",
+        },
+        "0xe94327d07fc17907b4db788e5adf2ed424addff6": {
+            "name": "AMIS",
+            "symbol": "AMIS",
+            "decimals": 9,
+            "website": "https://erc20amis.wordpress.com",
         },
         "0xe0b7927c4af23765cb51314a0e0521a9645f0e2a": {
             "name": "Digix DAO Token",
@@ -663,6 +670,66 @@ export default  {
             "decimals": 18,
             "website": "https://polyswarm.io",
         },
+        "0xb62132e35a6c13ee1ee0f84dc5d40bad8d815206": {
+            "name": "Nexo",
+            "symbol": "NEXO",
+            "decimals": 18,
+            "website": "https://nexo.io",
+        },
+        "0xd7732e3783b0047aa251928960063f863ad022d8": {
+            "name": "BrahmaOS",
+            "symbol": "BRM",
+            "decimals": 18,
+            "website": "https://www.brahmaos.io/",
+        },
+        "0x55296f69f40ea6d20e478533c15a6b08b654e758": {
+            "name": "XY Oracle",
+            "symbol": "XYO",
+            "decimals": 18,
+            "website": "https://xyo.network",
+        },
+        "0xf230b790e05390fc8295f4d3f60332c93bed42e2": {
+            "name": "Tronix",
+            "symbol": "TRX",
+            "decimals": 18,
+            "website": "https://tron.network/",
+        },
+        "0x1985365e9f78359a9b6ad760e32412f4a445e862": {
+            "name": "Reputation",
+            "symbol": "REP",
+            "decimals": 18,
+            "website": "https://www.augur.net/",
+        },
+        "0x0235fe624e044a05eed7a43e16e3083bc8a4287a": {
+            "name": "Original Crypto Coin",
+            "symbol": "OCC",
+            "decimals": 18,
+            "website": "https://originalcryptocoin.com/",
+        },
+        "0x8a854288a5976036a725879164ca3e91d30c6a1b": {
+            "name": "Guaranteed Entrance Token",
+            "symbol": "GET",
+            "decimals": 18,
+            "website": "https://guts.tickets/",
+        },
+        "0xc15a399c4ea7815fe36857c9e290ee452a5d6b21": {
+            "name": "BoatPilot Token",
+            "symbol": "NAVY",
+            "decimals": 18,
+            "website": "https://boatpilot.io/",
+        },
+        "0xfedae5642668f8636a11987ff386bfd215f942ee": {
+            "name": "PolicyPal Network",
+            "symbol": "PAL",
+            "decimals": 18,
+            "website": "https://www.policypal.network/",
+        },
+        "0xd49ff13661451313ca1553fd6954bd1d9b6e02b9": {
+            "name": "ElectrifyAsia",
+            "symbol": "ELEC",
+            "decimals": 18,
+            "website": "https://electrify.asia/",
+        },
     },
     NETWORK_BLOCK_EXPLORER: {
         1: "https://etherscan.io",
@@ -696,6 +763,14 @@ export default  {
                 name: "Paradex",
                 website: "https://paradex.io",
             },
+            "0x5dd835a893734b8d556eccf87800b76dda5aedc5": {
+                name: "Bamboo relay",
+                website: "https://bamboorelay.com",
+            },
+            "0x5e150a33ffa97a8d22f59c77ae5487b089ef62e9": {
+                name: "Token jar",
+                website: "https://tokenjar.io",
+            },
         },
         42: {
             "0xa258b39954cef5cb142fd567a46cddb31a670124": {
@@ -704,5 +779,45 @@ export default  {
             },
         },
     },
-    INFURA_API_URL: "https://mainnet.infura.io/rdkuEWbeKAjSR9jZ6P1h"
+    INFURA_API_URL: "https://mainnet.infura.io/rdkuEWbeKAjSR9jZ6P1h",
+    FIAT_CURRENCY_MAP: {
+        "USD": {
+            "symbol": "$",
+            "symbol_native": "$",
+            "decimal_digits": 2,
+            "rounding": 0,
+            "code": "USD"
+        },
+        "EUR": {
+            "symbol": "€",
+            "symbol_native": "€",
+            "decimal_digits": 2,
+            "rounding": 0,
+            "code": "EUR"
+        },
+        "GBP": {
+            "symbol": "£",
+            "symbol_native": "£",
+            "decimal_digits": 2,
+            "rounding": 0,
+            "code": "GBP"
+        },
+        "JPY": {
+            "symbol": "¥",
+            "symbol_native": "￥",
+            "decimal_digits": 0,
+            "rounding": 0,
+            "code": "JPY"
+        },
+        "KRW": {
+            "symbol": "₩",
+            "symbol_native": "₩",
+            "decimal_digits": 0,
+            "rounding": 0,
+            "code": "KRW"
+        }
+    },
+    PRICE_API_URL: function (symbols, base) {
+        return "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + symbols.join(',') + "&tsyms=" + base;
+    }
 };

@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import axios from "axios";
 import * as moment from 'moment';
 import BigNumber  from 'bignumber.js';
 import Constants from "./constants";
+import "./app.css";
 import * as Web3  from 'web3';
 import { ZeroEx } from '0x.js';
+import config from './config';
+import TradeVolume from './trade-volume';
+import { formatTokenLink, formatLink, formatRelayLink, formatHex } from './utils';
 
 
 class App extends Component {
 
-    _networkId = 1; // mainnet
+    _networkId = Constants.DEFAULT_NETWORK_ID;
     _priceInverted = false;
     _tradeMoreInfos = {};
     columns = [
@@ -25,34 +30,36 @@ class App extends Component {
             accessor: 'txid',
             width: 150,
             Cell: ({ original: trade }) => (
-                <span> { this.formatLink(trade.txid, this.formatHex(trade.txid, 8), 'tx') }</span> )
+                <span> { formatLink(trade.txid, formatHex(trade.txid, 8), 'tx') }</span> )
         },
         {
             Header: 'Trade',
             accessor: 'makerToken',
             Cell: ({ original: trade }) => (
                 <span>
-                    <i>{ trade.makerVolume.toFixed(6) }</i> {this.formatTokenLink(trade.makerToken)}
+                    <i>{ trade.makerVolume.toFixed(6) }</i> {formatTokenLink(trade.makerToken)}
                     <span>↔</span>
-                    <i>{ trade.takerVolume.toFixed(6) }</i> {this.formatTokenLink(trade.takerToken)}
+                    <i>{ trade.takerVolume.toFixed(6) }</i> {formatTokenLink(trade.takerToken)}
                 </span> )
         },
         {
             Header: 'Price (⇄)',
             accessor: 'mtPrice',
             width: 180,
-            Cell: ({ original: trade }) => (
-                <span onClick={() => this.setState({priceInverted: !this.state.priceInverted})}>
-                    {this.getPrice(trade)}
-                </span>
-            )
+            Cell: ({ original: trade }) => {
+                return (
+                    <div onClick={() => this.setState({ priceInverted: !this.state.priceInverted })}>
+                        { this.getPrice(trade) }
+                    </div>
+                )
+            }
         },
         {
             Header: 'Relay',
             accessor: 'relayAddress',
             width: 180,
             Cell: ({ original: trade }) => (
-                <span> { this.formatRelayLink(trade.relayAddress) } </span>
+                <span> { formatRelayLink(trade.relayAddress) } </span>
             )
         },
         {
@@ -73,8 +80,8 @@ class App extends Component {
         }
     ];
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             data: [],
             priceInverted: false
@@ -95,7 +102,7 @@ class App extends Component {
             price2 = trade.tmPrice ? trade.tmPrice : null;
         }
 
-        return this.state.priceInverted ? price1 : price2;
+        return (this.state.priceInverted ? price1 : price2) + "";
     }
 
     componentDidMount() {
@@ -123,8 +130,27 @@ class App extends Component {
     }
 
     loadTradeData() {
+        axios(config.API_URL + 'trades').then((response) => {
+            if (response.status !== 200) {
+                alert(response.status + ': ' + response.statusText);
+            } else {
+                console.log(response.data);
+                let trades = response.data.trades;
+                trades.forEach((trade, index) => {
+                    trade.makerVolume = new BigNumber(trade.makerVolume);
+                    trade.mtPrice = new BigNumber(trade.mtPrice);
+                    trade.takerFee = new BigNumber(trade.takerFee);
+                    trade.takerVolume = new BigNumber(trade.takerVolume);
+                    trade.tmPrice = new BigNumber(trade.tmPrice);
+                    trade.makerFee = new BigNumber(trade.makerFee);
+                    // _addNewTradeRow(index, trade);
+                });
+
+                this.setState({'data': trades});
+            }
+        });
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:8080/trades', true);
+        xhr.open('GET', config.API_URL + 'trades', true);
         xhr.send();
 
         xhr.onreadystatechange = () => {
@@ -136,12 +162,12 @@ class App extends Component {
                 let response = JSON.parse(xhr.responseText);
                 console.log(response);
                 response.trades.forEach((trade, index) => {
-                    trade.makerVolume = +trade.makerVolume;
-                    trade.mtPrice = +trade.mtPrice;
-                    trade.takerFee = +trade.takerFee;
-                    trade.takerVolume = +trade.takerVolume;
-                    trade.tmPrice = +trade.tmPrice;
-                    trade.makerFee = +trade.makerFee;
+                    trade.makerVolume = new BigNumber(trade.makerVolume);
+                    trade.mtPrice = new BigNumber(trade.mtPrice);
+                    trade.takerFee = new BigNumber(trade.takerFee);
+                    trade.takerVolume = new BigNumber(trade.takerVolume);
+                    trade.tmPrice = new BigNumber(trade.tmPrice);
+                    trade.makerFee = new BigNumber(trade.makerFee);
                     // _addNewTradeRow(index, trade);
                 });
 
@@ -151,58 +177,6 @@ class App extends Component {
         }
     }
 
-    formatRelayLink(address, digits) {
-        if (Constants.ZEROEX_RELAY_ADDRESSES[this._networkId][address]) {
-            return (
-                <a href={Constants.ZEROEX_RELAY_ADDRESSES[this._networkId][address].website} target="_blank">
-                    {Constants.ZEROEX_RELAY_ADDRESSES[this._networkId][address].name}
-                </a>
-            );
-        } else if (!(new BigNumber(address, 16)).eq(0)) {
-            return this.formatTokenAddressLink(Constants.ZEROEX_TOKEN_ADDRESS, address, this.formatHex(address, digits));
-        } else {
-            return "None";
-        }
-    }
-
-    formatLink(txid, text, type) {
-        let baseUrl = Constants.NETWORK_BLOCK_EXPLORER[this._networkId];
-
-        if (baseUrl) {
-            return (
-                <a href={baseUrl + `/${type}/` + txid} target="_blank">{text}</a>
-            );
-        } else {
-            return text;
-        }
-    }
-
-    formatTokenAddressLink(token, address, text) {
-        let baseUrl = Constants.NETWORK_BLOCK_EXPLORER[this._networkId];
-
-        if (baseUrl) {
-            return (
-                <a href={baseUrl + '/token/' + token + "/?a=" + address} target="_blank">{text}</a>
-            );
-        } else {
-            return text;
-        }
-    }
-
-    formatTokenLink(address, digits) {
-        if (Constants.ZEROEX_TOKEN_INFOS[address]) {
-            return this.formatLink(address, Constants.ZEROEX_TOKEN_INFOS[address].symbol, 'address');
-        } else {
-            return this.formatLink(address, this.formatHex(address, digits), 'address');
-        }
-    }
-
-    formatHex(hex, digits = 6) {
-        if (digits >= 64)
-            return hex;
-
-        return hex.substring(0, 2 + digits) + "...";
-    }
 
     formatDate(timestamp) {
         let date = new Date(timestamp * 1000);
@@ -211,15 +185,16 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-       <div >
-         <ReactTable
-             data={this.state.data}
-             columns={this.columns}
-             defaultPageSize="50"
-         />
-       </div>
-      </div>
+        <div className="App">
+            <div>
+                <TradeVolume tradeData={this.state.data}/>
+                <ReactTable
+                    data={this.state.data}
+                    columns={this.columns}
+                    defaultPageSize={50}
+                />
+            </div>
+        </div>
     );
   }
 
