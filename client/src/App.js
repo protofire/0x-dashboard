@@ -9,7 +9,7 @@ import "./app.css";
 import * as Web3  from 'web3';
 import { ZeroEx } from '0x.js';
 import config from './config';
-import TradeVolume from './trade-volume';
+import TokenStatistic from './token-statistic';
 import { formatTokenLink, formatLink, formatRelayLink, formatHex } from './utils';
 
 
@@ -187,7 +187,7 @@ class App extends Component {
     return (
         <div className="App">
             <div>
-                <TradeVolume tradeData={this.state.data}/>
+                <TokenStatistic tradeData={this.state.data}/>
                 <ReactTable
                     data={this.state.data}
                     columns={this.columns}

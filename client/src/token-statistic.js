@@ -4,7 +4,7 @@ import Constants from "./constants";
 import axios from "axios";
 import { formatTokenWebsiteLink, formatPrice, formatTokenLink } from './utils';
 
-class TradeVolume extends Component {
+class TokenStatistic extends Component {
     fiatCurrencyInfo = Constants.FIAT_CURRENCY_MAP["USD"];
     tokenPrices = {};
 
@@ -235,5 +235,5 @@ class TradeVolume extends Component {
 
 }
 
-export default TradeVolume
+export default TokenStatistic
 
