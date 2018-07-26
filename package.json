@@ -7,35 +7,26 @@
     "doc": "docs"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
     "0x.js": "^0.30.2",
     "@0xproject/types": "^0.1.9",
     "@0xproject/utils": "^0.2.4",
-    "@types/bootstrap": "^3.3.39",
-    "@types/chart.js": "^2.7.10",
-    "@types/node": "^9.6.2",
-    "awesome-typescript-loader": "^3.5.0",
     "bootstrap": "^4.0.0",
-    "chart.js": "^2.7.2",
     "concurrently": "^3.6.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "get-json": "^1.0.0",
-    "jquery": "^3.3.1",
     "moment": "^2.22.0",
     "node-fetch": "^2.1.2",
-    "popper.js": "^1.14.2",
-    "uglifyjs-webpack-plugin": "^1.2.4",
-    "web3": "^0.20.6",
     "web3-provider-engine": "^13.8.0",
     "web3-typescript-typings": "^0.9.11",
-    "webpack": "^3.12.0"
-  },
-  "devDependencies": {
-    "cross-env": "^5.2.0"
+    "web3": "^0.20.6"
   },
   "scripts": {
     "server": "cross-env DEBUG=true  node server/index.js",
-    "publish": "concurrently  \"node server/index.js\"  \"cd client && npm run build\""
+    "publish": "concurrently  \"node server/index.js\"  \"npm run build-client\"",
+    "build-client": "cd client && npm run build",
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
