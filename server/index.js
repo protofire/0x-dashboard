@@ -41,13 +41,13 @@ let fiatCurrencyInfo = Constants.FIAT_CURRENCY_MAP[paramCurrency] || Constants.F
 
 let web3 = new Web3(ZeroClientProvider({getAccounts: (cb) => { cb(null, []); }, rpcUrl: Constants.INFURA_API_URL}));
 
-app.use(cors());
+app.use(cors()); // enable CORS
 
 // app.use('/api', [authController]);
-app.use('/client', express.static(path.join(__dirname, '../client')));
+app.use('/', express.static(path.join(__dirname, '../public')));
 
 app.get('/', function(req,res){
-    res.sendFile(path.join(__dirname, '../client/index.html'));
+    res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 app.get('/trades', function(req,res){

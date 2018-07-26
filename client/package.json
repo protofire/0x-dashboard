@@ -1,17 +1,29 @@
 {
-  "name": "my-app",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "0x.js": "^0.30.2",
+    "@0xproject/typescript-typings": "^1.0.0",
+    "axios": "^0.18.0",
+    "bignumber.js": "^7.2.1",
+    "moment": "^2.22.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-google-charts": "2.0.18",
     "react-scripts": "1.1.4",
-    "react-grid-layout": "0.16.6"
+    "rimraf": "^2.6.2",
+    "web3-provider-engine": "^13.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run clean && react-scripts build && npm run copy",
+    "copy": "copyfiles -u 1 \"build/**/*\"  \"../public/\"",
+    "clean": "rimraf \"../public\"",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.0.0"
   }
 }
