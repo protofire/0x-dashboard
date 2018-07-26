@@ -180,7 +180,7 @@ class App extends Component {
 
     formatDate(timestamp) {
         let date = new Date(timestamp * 1000);
-        return moment(date).format('YYYY/MM/DD HH:mm:SS');
+        return moment(date).format('YYYY/MM/DD HH:mm:ss');
     }
 
   render() {
