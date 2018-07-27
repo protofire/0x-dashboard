@@ -285,7 +285,7 @@ class TradeService {
         }
         this._trades.splice(index, 0, trade);
 
-        if (fromSubcribe) {
+        if (fromSubscribe) {
             console.log("New trade from subscribe: ", new Date(), "trade time stemp: ", new Date(trade.timestamp * 1000), " block number: ", trade.blockNumber);
         }
 
