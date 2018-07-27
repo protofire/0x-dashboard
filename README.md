@@ -27,5 +27,5 @@ npm run web-build
 
 Publish app on server
 ```
-npm run publish
+npm run start
 ```

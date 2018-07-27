@@ -70,7 +70,7 @@
   },
   "scripts": {
     "server-debug": "cross-env DEBUG=true  node server/index.js",
-    "publish": "npm run web-build && npm run server",
+    "start": "npm run web-build && npm run server",
     "web-build": "node scripts/build",
     "web": "node scripts/start",
     "server": "node server/index.js"
