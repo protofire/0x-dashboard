@@ -56,7 +56,7 @@ app.get('/trades', function(req,res){
 
     res.json({
         success: true,
-        trades: tradeService.getTradeData()
+        trades: tradeService.getLast24TradeData()
     })
 });
 
