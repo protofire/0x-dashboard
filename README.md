@@ -1,4 +1,5 @@
 # 0x-dashboard
+Dashboard that displays information about the network traffic, including trades, addresses and statistics about transfers.
 
 ### Setup instruction
 Install dependencies:

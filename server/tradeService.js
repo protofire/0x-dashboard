@@ -95,7 +95,9 @@ class TradeService {
 
     }
 
-    getTradeData() {
+    getLast24TradeData() {
+        let fromTimestamp = Math.floor(Date.now() / 1000) - Constants.STATISTICS_TIME_WINDOW;
+        this._trades = this._trades.filter((t) => t.timestamp >= fromTimestamp);
         return this._trades;
     }
 
