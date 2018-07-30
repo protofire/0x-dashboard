@@ -46,10 +46,10 @@ let web3 = new Web3(ZeroClientProvider({getAccounts: (cb) => { cb(null, []); }, 
 app.use(cors()); // enable CORS
 
 // app.use('/api', [authController]);
-app.use('/', express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, '../build')));
 
 app.get('/', function(req,res){
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 app.get('/trades', function(req,res){
