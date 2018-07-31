@@ -39,11 +39,8 @@ class TokenStatistic extends Component {
         statistics.volume.totalVolumeFiat = new BigNumber(0);
         statistics.volume.tokens = {};
         statistics.counts.relays = {};
-        //console.log(this.props.tradeData);
 
         for (let trade of this.props.tradeData) {
-            //console.log(trade.makerFee);
-
             let relayAddress = trade.relayAddress;
             let relayFee = trade.makerFee.plus(trade.takerFee);
 

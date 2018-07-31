@@ -801,6 +801,26 @@ export default  {
                 name: "Token jar",
                 website: "https://tokenjar.io",
             },
+            "0x8124071f810d533ff63de61d0c98db99eeb99d64": {
+                name: "StarBitEx",
+                website: "https://www.starbitex.com/",
+            },
+            "0x6f7ae872e995f98fcd2a7d3ba17b7ddfb884305f": {
+                name: "Tokenlon",
+                website: "https://tokenlon.token.im/",
+            },
+            "0x0e8ba001a821f3ce0734763d008c9d7c957f5852": {
+                name: "Amadeus Relay",
+                website: "https://amadeusrelay.org/",
+            },
+            "0x4524baa98f9a3b9dec57caae7633936ef96bd708": {
+                name: "LedgerDex",
+                website: "https://www.ledgerdex.com/",
+            },
+            "0x55890b06f0877a01bb5349d93b202961f8e27a9b": {
+                name: "Shark Relay",
+                website: "https://sharkrelay.com/",
+            },
         },
         42: {
             "0xa258b39954cef5cb142fd567a46cddb31a670124": {

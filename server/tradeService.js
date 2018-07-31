@@ -83,7 +83,7 @@ class TradeService {
         this._updatePrices();
 
         /* Subscribe to new fill logs */
-        this._zeroEx.exchange.subscribe(ExchangeEvents.LogFill, {}, (err, decodedLog) => { this._onLogFillEvent(err, decodedLog); });
+        this.subcribtionToken = this._zeroEx.exchange.subscribe(ExchangeEvents.LogFill, {}, (err, decodedLog) => { this._onLogFillEvent(err, decodedLog, true); });
 
         /* Fetch past fill logs */
         await this.fetchPastTradesDuration(Constants.STATISTICS_TIME_WINDOW);
@@ -95,7 +95,9 @@ class TradeService {
 
     }
 
-    getTradeData() {
+    getLast24TradeData() {
+        let fromTimestamp = Math.floor(Date.now() / 1000) - Constants.STATISTICS_TIME_WINDOW;
+        this._trades = this._trades.filter((t) => t.timestamp >= fromTimestamp);
         return this._trades;
     }
 
@@ -110,6 +112,24 @@ class TradeService {
             fromBlock = Constants.ZEROEX_GENESIS_BLOCK[this._networkId];
 
         this._oldestBlockFetched = fromBlock;
+
+        let logs = await this._zeroEx.exchange.getLogsAsync(ExchangeEvents.LogFill, {fromBlock: fromBlock, toBlock: toBlock}, {});
+
+        for (let log of logs) {
+            await this._onLogFillEvent(null, {isRemoved: false, log: log});
+        }
+    }
+
+
+    async fetchLatestTrades() {
+        let fromBlock = this._trades[0].blockNumber ;
+        let toBlock =  BlockParamLiteral.Latest;
+
+        Logger.log('[Model] Fetching blocks from ' + fromBlock + ' to ' + toBlock);
+
+        /* Clamp to 0x genesis block */
+        if (fromBlock < Constants.ZEROEX_GENESIS_BLOCK[this._networkId])
+            fromBlock = Constants.ZEROEX_GENESIS_BLOCK[this._networkId];
 
         let logs = await this._zeroEx.exchange.getLogsAsync(ExchangeEvents.LogFill, {fromBlock: fromBlock, toBlock: toBlock}, {});
 
@@ -183,10 +203,15 @@ class TradeService {
         await this._updatePrices();
     }
 
-    async _onLogFillEvent(err, decodedLog) {
+    async _onLogFillEvent(err, decodedLog, fromSubscribe) {
         if (err) {
             Logger.error('[Model] Got Log Fill event error:');
             Logger.error(err);
+            if (fromSubscribe && this.subcribtionToken) {
+                this._zeroEx.exchange.unsubscribe(this.subcribtionToken);
+                this.subcribtionToken = this._zeroEx.exchange.subscribe(ExchangeEvents.LogFill, {}, (err, decodedLog) => { this._onLogFillEvent(err, decodedLog, true); });
+                await this.fetchLatestTrades();
+            }
             return;
         }
 
@@ -261,6 +286,10 @@ class TradeService {
                 break;
         }
         this._trades.splice(index, 0, trade);
+
+        if (fromSubscribe) {
+            console.log("New trade from subscribe: ", new Date(), "trade time stemp: ", new Date(trade.timestamp * 1000), " block number: ", trade.blockNumber);
+        }
 
         /* Update our price history for this token pair */
         if (trade.makerNormalized && trade.takerNormalized) {

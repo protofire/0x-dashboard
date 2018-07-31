@@ -103,7 +103,7 @@ export default class Trades extends Component {
           </div>
         </div>,
         <div className="container-panel">
-          {this.props.trades && this.props.trades.length &&<ReactTable
+          {this.props.trades && this.props.trades.length && <ReactTable
               className="table table-bordered table-striped"
               data={this.props.trades}
               columns={this.columns}

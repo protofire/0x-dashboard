@@ -6,7 +6,7 @@ import BigNumber  from 'bignumber.js';
 import * as Web3  from 'web3';
 import { ZeroEx } from '0x.js';
 import Routes from "./Routes";
-import "./App.css";
+import "./app.css";
 import config from './config';
 import Constants from "./constants";
 import Navigation from './Navigation';
@@ -101,8 +101,6 @@ class App extends Component {
     };
     const currentPath = window && window.location ? window.location.href.split('/') : null;
     const path = currentPath[currentPath.length - 1];
-    console.log(path)
-    console.log(path === '')
     return (
         <div className="App">
             <Navigation
