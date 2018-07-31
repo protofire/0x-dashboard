@@ -6,7 +6,7 @@ import BigNumber  from 'bignumber.js';
 import * as Web3  from 'web3';
 import { ZeroEx } from '0x.js';
 import Routes from "./Routes";
-import "./app.css";
+import "./styles.css";
 import config from './config';
 import Constants from "./constants";
 import Navigation from './Navigation';
