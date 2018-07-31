@@ -6,9 +6,9 @@ export default [
     link: '',
   },
   {
-    id: 'trades',
+    id: 'trade',
     label: 'Recent Trades',
     icon: 'chart-bar',
-    link: 'trades',
+    link: 'trade',
   }
 ]
