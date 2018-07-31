@@ -71,4 +71,3 @@ app.listen(port, function () {
 
     tradeService.init();
 });
-

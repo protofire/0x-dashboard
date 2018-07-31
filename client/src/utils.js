@@ -1,7 +1,7 @@
 import React from 'react';
 import Constants from "./constants";
 import BigNumber  from 'bignumber.js';
-
+import * as moment from 'moment';
 
 let _networkId = Constants.DEFAULT_NETWORK_ID;
 let fiatCurrencyInfo = Constants.FIAT_CURRENCY_MAP["USD"];
@@ -80,6 +80,11 @@ function formatPrice(price) {
     return price.toString();
 }
 
+function formatDate(timestamp) {
+   let date = new Date(timestamp * 1000);
+   return moment(date).format('YYYY/MM/DD HH:mm:SS');
+}
+
 export {
     formatTokenWebsiteLink,
     formatRelayLink,
@@ -87,5 +92,6 @@ export {
     formatTokenAddressLink,
     formatTokenLink,
     formatHex,
-    formatPrice
+    formatPrice,
+    formatDate
 }

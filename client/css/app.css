@@ -1,0 +1,309 @@
+/* Common */
+
+body {
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+}
+
+.container {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.anchor {
+  display: block;
+  visibility: hidden;
+  margin-top: -1.5rem;
+}
+
+.mono {
+  font-family: monospace, monospace;
+  font-size: 1.0rem;
+}
+
+.text-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.canvas-wrapper {
+  max-width: 70%;
+  margin-bottom: 1rem;
+}
+
+.borderless td, .borderless th, .borderless tr th {
+    border: none;
+}
+
+/******************************************************************************/
+
+/* Description */
+
+.description {
+  font-weight: 300;
+  font-size: 1.0rem;
+  margin-bottom: 0.5rem;
+}
+
+/******************************************************************************/
+
+/* Dropdown menus */
+
+.dropdown-right {
+  margin: auto 0 1rem auto;
+}
+
+.dropdown-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dropdown-menu {
+  min-width: 0;
+}
+
+.dropdown-menu li {
+  padding: 0 15px 0 10px;
+  white-space: nowrap;
+}
+
+/******************************************************************************/
+
+/* Panel Controls */
+
+.panel-controls-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.panel-controls {
+  right: 1rem;
+  top: 1.2rem;
+  position: absolute;
+}
+
+.panel-change {
+  font-size: 1rem;
+  line-height: 1rem;
+  opacity: 0;
+}
+
+div.panel-header:hover .panel-change {
+  opacity: 1;
+}
+
+.panel-header-link {
+  font-size: 1rem;
+  line-height: 1rem;
+  opacity: 0;
+}
+
+div.panel-header:hover .panel-header-link {
+  opacity: 1;
+}
+
+.panel-close {
+  font-size: 1rem;
+  line-height: 1rem;
+  opacity: 0;
+}
+
+div.panel-header:hover .panel-close {
+  opacity: 1;
+}
+
+/******************************************************************************/
+
+/* EmptyPanel */
+
+.empty-panel-select {
+  height: 10vh;
+}
+
+.empty-panel-select div {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/******************************************************************************/
+
+/* VolumeStatisticsPanel */
+
+.volume-statistics th {
+  white-space: pre;
+  padding-right: 0.8rem;
+}
+
+.volume-statistics td {
+  width: 100%;
+}
+
+.volume-statistics {
+  margin-bottom: 0;
+}
+
+/******************************************************************************/
+
+/* RecentTradesPanel */
+
+.recent-trades, .recent-trades .mono {
+  font-size: 0.8rem;
+}
+
+table.recent-trades {
+  margin-bottom: 0.5rem;
+}
+
+.recent-trades th, .recent-trades td {
+  white-space: nowrap;
+}
+
+.recent-trades .overflow {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-trades .overflow-sm {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-trades .more-info {
+  cursor: pointer;
+}
+
+.recent-trades .price-invert {
+  cursor: pointer;
+}
+
+.recent-trades .time-switch {
+  cursor: pointer;
+}
+
+.recent-trades-fetch-more {
+  font-size: 1.0rem;
+  margin-bottom: 1rem;
+}
+
+table.trade-more-info {
+  table-layout: auto;
+  margin-bottom: 0;
+}
+
+.trade-more-info tr th {
+  width: 1%;
+  vertical-align: top;
+}
+
+.trade-more-info button.fetch-order {
+  line-height: 0.7rem;
+  font-size: 0.8rem;
+}
+
+.trade-more-info pre.order-json {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5rem;
+  border: 1px dashed #999;
+  font-size: 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.trade-more-info div.fill-order {
+  margin-top: 0.25rem;
+}
+
+.trade-more-info .fill-order a {
+  line-height: 0.7rem;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+/******************************************************************************/
+
+/* Add Panel Row Buttons */
+
+.add-panel-row-buttons {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/******************************************************************************/
+
+/* Footer */
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.footer span {
+  font-size: 0.9rem;
+}
+
+/******************************************************************************/
+
+/* Status Bar */
+
+#status-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  line-height: 1.5rem;
+  background-color: #222;
+  z-index: 3;
+}
+
+#status-bar table {
+  table-layout: fixed;
+  font-size: 0.8rem;
+  color: white;
+  width: 100%;
+}
+
+#status-bar table td {
+  width: 33.3%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#status-bar a, #status-bar b {
+  color: #62AEFC;
+}
+
+/******************************************************************************/
+
+/* Loading modal */
+
+#loading-modal .modal-dialog {
+  margin-top: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#loading-modal h3 {
+  margin: 0;
+}
+
+#loading-modal .progress-bar {
+  width: 100%;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-weight: bold;
+}

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import BigNumber  from 'bignumber.js';
 import Constants from "./constants";
 import axios from "axios";
+//import Chart from "./Chart";
+import { Chart } from "react-google-charts";
 import { formatTokenWebsiteLink, formatPrice, formatTokenLink } from './utils';
 
 class TokenStatistic extends Component {
@@ -13,7 +15,11 @@ class TokenStatistic extends Component {
 
         this.state = {
             isUpdatedStatistic: false,
-            statistics: { fees: {totalFees: new BigNumber(0)}, volume: {totalVolumeFiat: new BigNumber(0)}, counts: {} }
+            statistics: {
+              fees: {totalFees: new BigNumber(0)},
+              volume: {totalVolumeFiat: new BigNumber(0)},
+              counts: {}
+            }
         }
     }
 
@@ -35,7 +41,6 @@ class TokenStatistic extends Component {
         statistics.counts.relays = {};
 
         for (let trade of this.props.tradeData) {
-
             let relayAddress = trade.relayAddress;
             let relayFee = trade.makerFee.plus(trade.takerFee);
 
@@ -65,7 +70,6 @@ class TokenStatistic extends Component {
             let takerToken = trade.takerToken;
             let makerVolume = trade.makerVolume;
             let takerVolume = trade.takerVolume;
-;
             let makerTokenSymbol = trade.makerNormalized ? (Constants.ZEROEX_TOKEN_INFOS[makerToken] || {}).symbol : null;
             let takerTokenSymbol = trade.takerNormalized ? (Constants.ZEROEX_TOKEN_INFOS[takerToken] || {}).symbol : null;
 
@@ -162,7 +166,16 @@ class TokenStatistic extends Component {
         // await this.updatePrices();
     }
 
-    listTokens() {
+    renderChartData(token, renderChartData) {
+      renderChartData.push([
+        Constants.ZEROEX_TOKEN_INFOS[token].symbol,
+        parseInt(formatPrice(this.state.statistics.volume.tokens[token].volumeFiat).replace('$', '').replace(' USD', '').split(',').join(''), 10),
+        "#"+((1<<24)*Math.random()|0).toString(16)
+      ])
+      return renderChartData;
+    }
+
+    listTokens(renderChartData) {
         /* Token Volumes */
         let tokens = Object.keys(this.state.statistics.volume.tokens);
 
@@ -177,6 +190,7 @@ class TokenStatistic extends Component {
             if (this.state.statistics.volume.tokens[token].volumeFiat.gt(0)) {
                 volume += " (" + formatPrice(this.state.statistics.volume.tokens[token].volumeFiat) + ")";
             }
+            this.renderChartData(token, renderChartData);
             return (
                 <tr key={index}>
                     <th>{formatTokenWebsiteLink(token)}</th>
@@ -187,6 +201,7 @@ class TokenStatistic extends Component {
     }
 
     render() {
+        let renderChartData = [["Element", "Token price", { role: "style" }]];
         let aggregateVolume = "";
         if (this.state.statistics.volume.totalVolumeFiat.gt(0)) {
             aggregateVolume = (
@@ -216,24 +231,37 @@ class TokenStatistic extends Component {
                 <tbody>
                     {aggregateVolume}
                     {relayFees}
-                    {this.listTokens.call(this)}
+                    {this.listTokens(renderChartData)}
                 </tbody>
             )
         }
 
-        return (
-            <div>
-                <h2>Volume 24h</h2>
-                <div className="row">
-                    <table className="table table-condensed table-sm volume-statistics">
-                        {tBody}
-                    </table>
-                </div>
+        return [
+          <div className="container-panel">
+            <div className="panel-head">
+              <h5>Token Volume 24h</h5>
             </div>
-        )
+            <div className="row">
+              <div className="col-12">
+                <Chart chartType="BarChart" width="100%" height="650px" data={renderChartData} />
+              </div>
+            </div>
+          </div>,
+          <div className="container-panel">
+            <div className="panel-head">
+              <h5>Volume 24h</h5>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <table className="table table-condensed table-sm volume-statistics">
+                    {tBody}
+                </table>
+              </div>
+            </div>
+          </div>
+        ]
     }
 
 }
 
 export default TokenStatistic
-
