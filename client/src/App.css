@@ -2,13 +2,13 @@
   margin: 0;
   padding: 0;
 }
-.App {
-  text-align: center;
+
+body {
+  background-color: #f0f2f5;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.App {
+  text-align: center;
 }
 
 .App-header {
@@ -26,14 +26,80 @@
   font-size: large;
 }
 
-.react-grid-item {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  width: 100% !important;
+.panel {
+  padding: 20px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.content {
+  padding-top: 67px;
+  margin-left: 0;
+  transition: all 0.5s ease;
+  padding-top: 67px;
+}
+
+.content.nav-open {
+  margin-left: 212px;
+  transition: all 0.5s ease;
+}
+
+.container-panel {
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+}
+
+.container-title {
+  background-image: url('/bg_dashboard.jpg');
+  background-position: 0 50%;
+}
+
+.container-title-content {
+  background-color: rgba(255,255,255,.9);
+  padding: 20px;
+}
+
+.title {
+  font-family: "Nunito Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1.875rem;
+  margin: 0;
+  font-weight: 600;
+  text-align: left;
+}
+
+.panel-head {
+  background-color: #f9fafc;
+  border-top-left-radius: .2rem;
+  border-top-right-radius: .2rem;
+  padding: 20px;
+  margin: -20px -20px 0 -20px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none;
+}
+
+.table .rt-tr-group:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
+}
+
+.table .rt-thead {
+  color: #fff;
+  background-color: #212529;
+  border-color: #32383e;
+}
+
+.table .rt-thead .rt-th {
+  padding: .75rem;
+}
+
+.ReactTable .rt-thead .rt-th.-sort-desc,
+.ReactTable .rt-thead .rt-td.-sort-desc {
+  box-shadow: inset 0 -3px 0 0 white;
+}
+
+.ReactTable .rt-thead .rt-th.-sort-asc,
+.ReactTable .rt-thead .rt-td.-sort-asc {
+  box-shadow: inset 0 3px 0 0 white;
 }

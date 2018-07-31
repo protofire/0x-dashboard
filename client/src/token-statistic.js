@@ -239,23 +239,30 @@ class TokenStatistic extends Component {
             )
         }
 
-        return (
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-12">
-                  <h2>Volume 24h</h2>
-                  <table className="table table-condensed table-sm volume-statistics">
-                      {tBody}
-                  </table>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-12">
-                  <Chart chartType="BarChart" width="100%" height="900px" data={renderChartData} />
-                </div>
+        return [
+          <div className="container-panel">
+            <div className="panel-head">
+              <h5>Token Volume 24h</h5>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <Chart chartType="BarChart" width="100%" height="650px" data={renderChartData} />
               </div>
             </div>
-        )
+          </div>,
+          <div className="container-panel">
+            <div className="panel-head">
+              <h5>Volume 24h</h5>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <table className="table table-condensed table-sm volume-statistics">
+                    {tBody}
+                </table>
+              </div>
+            </div>
+          </div>
+        ]
     }
 
 }

@@ -10,8 +10,11 @@
     "moment": "^2.22.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-fontawesome": "^1.6.1",
     "react-google-charts": "2.0.18",
     "react-scripts": "1.1.4",
+    "react-router-dom": "^4.2.2",
+    "react-table": "^6.8.6",
     "rimraf": "^2.6.2",
     "web3-provider-engine": "^13.8.0"
   },
