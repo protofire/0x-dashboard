@@ -8,6 +8,6 @@ export default class Dashboard extends Component {
             <h2 className="title">Dashboard</h2>
           </div>
         </div>
-    ]
+    ];
   }
 }

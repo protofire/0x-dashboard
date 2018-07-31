@@ -9,7 +9,7 @@ export default ({childProps}) => {
   return (
     <Switch>
         <AppliedRoute path="/" exact component={Dashboard} props={childProps}/>
-        <AppliedRoute path="/trades" exact component={Trades} props={childProps}/>
+        <AppliedRoute path="/trade" exact component={Trades} props={childProps}/>
         {/* Catch all unmatched routes */}
         <AppliedRoute component={NotFound}/>
     </Switch>
