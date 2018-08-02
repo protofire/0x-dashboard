@@ -74,7 +74,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "server-debug": "cross-env DEBUG=true  node server/index.js",
+    "server-debug": "cross-env DEBUG=true  node --inspect server/index.js ",
     "start": "npm run web-build && npm run server",
     "web-build": "node scripts/build",
     "web": "node scripts/start",

@@ -68,31 +68,7 @@ class App extends Component {
                 this.setState({trades: trades});
             }
         });
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', config.API_URL + 'trades', true);
-        xhr.send();
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState !== 4) return;
-
-            if (xhr.status !== 200) {
-                alert(xhr.status + ': ' + xhr.statusText);
-            } else {
-                let response = JSON.parse(xhr.responseText);
-                response.trades.forEach((trade, index) => {
-                    trade.makerVolume = new BigNumber(trade.makerVolume);
-                    trade.mtPrice = new BigNumber(trade.mtPrice);
-                    trade.takerFee = new BigNumber(trade.takerFee);
-                    trade.takerVolume = new BigNumber(trade.takerVolume);
-                    trade.tmPrice = new BigNumber(trade.tmPrice);
-                    trade.makerFee = new BigNumber(trade.makerFee);
-                    // _addNewTradeRow(index, trade);
-                });
-
-                this.setState({trades: response.trades});
-            }
-
-        }
     }
 
   render() {
