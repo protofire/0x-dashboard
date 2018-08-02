@@ -160,9 +160,6 @@ class TokenStatistic extends Component {
 
         /* Update statistics */
         this.updateStatistics();
-
-        // await Model.delay(Constants.PRICE_UPDATE_TIMEOUT);
-        // await this.updatePrices();
     }
 
     renderChartData(token, renderChartData) {
