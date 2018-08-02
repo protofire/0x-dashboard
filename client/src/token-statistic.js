@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import BigNumber  from 'bignumber.js';
 import Constants from "./constants";
 import axios from "axios";
-//import Chart from "./Chart";
 import { Chart } from "react-google-charts";
 import { formatTokenWebsiteLink, formatPrice, formatTokenLink } from './utils';
 
@@ -175,6 +174,50 @@ class TokenStatistic extends Component {
       return renderChartData;
     }
 
+    renderTokenGraphData(trades) {
+        let filterTrades = [];
+        let renderChartGraph = [["Element", "Token sails (time)", { role: "style" }]];
+        trades.map(trade => filterTrades.push([
+          Constants.ZEROEX_TOKEN_INFOS[trade.makerToken] ? Constants.ZEROEX_TOKEN_INFOS[trade.makerToken].symbol : null,
+          Constants.ZEROEX_TOKEN_INFOS[trade.takerToken] ? Constants.ZEROEX_TOKEN_INFOS[trade.takerToken].symbol : null
+        ]))
+        const BRMtoWETH = ["BRM", "WETH"];
+        const BATtoWETH = ["BAT", "WETH"];
+        const ZRXtoWETH = ["ZRX", "WETH"];
+        const DAItoWETH = ["DAI", "WETH"];
+        const RALtoWETH = ["RAL", "WETH"];
+        const NEXOtoWETH = ["NEXO", "WETH"];
+        const MANAtoWETH = ["MANA", "WETH"];
+        const SUBtoWETH = ["SUB", "WETH"];
+        const BQXtoWETH = ["BQX", "WETH"];
+        const OMGtoWETH = ["OMG", "WETH"];
+
+        let BRMtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(BRMtoWETH))
+        let BATtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(BATtoWETH))
+        let ZRXtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(ZRXtoWETH))
+        let DAItoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(DAItoWETH))
+        let RALtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(RALtoWETH))
+        let NEXOtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(NEXOtoWETH))
+        let MANAtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(MANAtoWETH))
+        let SUBtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(SUBtoWETH))
+        let BQXtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(BQXtoWETH))
+        let OMGtoWETHdata = filterTrades.filter(data => JSON.stringify(data) === JSON.stringify(OMGtoWETH))
+
+        renderChartGraph.push(
+          ["BRM/WETH", BRMtoWETHdata.length, 'green'],
+          ["BAT/WETH", BATtoWETHdata.length, 'blue'],
+          ["ZRX/WETH", ZRXtoWETHdata.length, 'gray'],
+          ["DAI/WETH", DAItoWETHdata.length, 'yellow'],
+          ["RAL/WETH", RALtoWETHdata.length, 'purple'],
+          ["NEXO/WETH", NEXOtoWETHdata.length, 'brown'],
+          ["MANA/WETH", MANAtoWETHdata.length, 'red'],
+          ["SUB/WETH", SUBtoWETHdata.length, 'black'],
+          ["BQX/WETH", BQXtoWETHdata.length, 'orange'],
+          ["OMG/WETH", OMGtoWETHdata.length, '#ec44b8'],
+        );
+        return renderChartGraph;
+    }
+
     listTokens(renderChartData) {
         /* Token Volumes */
         let tokens = Object.keys(this.state.statistics.volume.tokens);
@@ -235,15 +278,29 @@ class TokenStatistic extends Component {
                 </tbody>
             )
         }
-
         return [
-          <div className="container-panel">
-            <div className="panel-head">
-              <h5>Token Volume 24h</h5>
-            </div>
+          <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
-                <Chart chartType="BarChart" width="100%" height="650px" data={renderChartData} />
+              <div className="col-6">
+                <div className="container-panel">
+                  <div className="panel-head">
+                    <h5>Token Pairs 24h</h5>
+                  </div>
+                  <Chart
+                      chartType="ColumnChart"
+                      width="100%"
+                      height="550px"
+                      data={this.renderTokenGraphData(this.props.tradeData)}
+                  />
+                </div>
+              </div>
+              <div className="col-6">
+                <div className="container-panel">
+                  <div className="panel-head">
+                    <h5>Token Volume 24h</h5>
+                  </div>
+                  <Chart chartType="BarChart" width="100%" height="550px" data={renderChartData} />
+                </div>
               </div>
             </div>
           </div>,
