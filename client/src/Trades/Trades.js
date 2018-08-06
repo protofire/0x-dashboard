@@ -102,13 +102,19 @@ export default class Trades extends Component {
             <h2 className="title">Recent Trades</h2>
           </div>
         </div>,
-        <div className="container-panel">
-          {this.props.trades && this.props.trades.length && <ReactTable
-              className="table table-bordered table-striped"
-              data={this.props.trades}
-              columns={this.columns}
-              defaultPageSize={50}
-          />}
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12">
+              <div className="container-panel">
+                {this.props.trades && this.props.trades.length && <ReactTable
+                    className="table table-bordered table-striped"
+                    data={this.props.trades}
+                    columns={this.columns}
+                    defaultPageSize={50}
+                />}
+              </div>
+            </div>
+          </div>
         </div>
     ]
   }
