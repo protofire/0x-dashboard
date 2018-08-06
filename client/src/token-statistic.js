@@ -173,7 +173,7 @@ class TokenStatistic extends Component {
 
     renderTokenGraphData(trades) {
         let filterTrades = [];
-        let renderChartGraph = [["Element", "Token sails (time)", { role: "style" }]];
+        let renderChartGraph = [["Element", "Token sales (time)", { role: "style" }]];
         trades.map(trade => filterTrades.push([
           Constants.ZEROEX_TOKEN_INFOS[trade.makerToken] ? Constants.ZEROEX_TOKEN_INFOS[trade.makerToken].symbol : null,
           Constants.ZEROEX_TOKEN_INFOS[trade.takerToken] ? Constants.ZEROEX_TOKEN_INFOS[trade.takerToken].symbol : null
@@ -301,15 +301,21 @@ class TokenStatistic extends Component {
               </div>
             </div>
           </div>,
-          <div className="container-panel">
-            <div className="panel-head">
-              <h5>Volume 24h</h5>
-            </div>
+          <div className="container-fluid">
             <div className="row">
               <div className="col-12">
-                <table className="table table-condensed table-sm volume-statistics">
-                    {tBody}
-                </table>
+                <div className="container-panel">
+                  <div className="panel-head">
+                    <h5>Volume 24h</h5>
+                  </div>
+                  <div className="row">
+                    <div className="col-12">
+                      <table className="table table-condensed table-sm volume-statistics">
+                          {tBody}
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
