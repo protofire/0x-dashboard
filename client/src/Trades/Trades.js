@@ -31,9 +31,9 @@ export default class Trades extends Component {
           accessor: 'makerToken',
           Cell: ({ original: trade }) => (
               <span>
-                  <i>{ trade.makerVolume.toFixed(6) }</i> {formatTokenLink(trade.makerToken)}
+                  <i>{ trade.makerVolume.toFixed(4) }</i> {formatTokenLink(trade.makerToken)}
                   <span>↔</span>
-                  <i>{ trade.takerVolume.toFixed(6) }</i> {formatTokenLink(trade.takerToken)}
+                  <i>{ trade.takerVolume.toFixed(4) }</i> {formatTokenLink(trade.takerToken)}
               </span> )
       },
       {
@@ -77,17 +77,20 @@ export default class Trades extends Component {
       let price1, price2;
 
       if (Constants.ZEROEX_TOKEN_INFOS[trade.makerToken] && Constants.ZEROEX_TOKEN_INFOS[trade.makerToken].symbol === "WETH") {
-          price1 = trade.mtPrice ? trade.mtPrice : null;
-          price2 = trade.tmPrice ? trade.tmPrice : null;
+          price1 = trade.mtPrice && !isNaN(trade.mtPrice.toNumber()) ? trade.mtPrice : "-";
+          price2 = trade.tmPrice && !isNaN(trade.tmPrice.toNumber()) ? trade.tmPrice : "-";
       } else if (Constants.ZEROEX_TOKEN_INFOS[trade.takerToken] && Constants.ZEROEX_TOKEN_INFOS[trade.takerToken].symbol === "WETH") {
-          price1 = trade.tmPrice ? trade.tmPrice : null;
-          price2 = trade.mtPrice ? trade.mtPrice : null;
+          price1 = trade.tmPrice && !isNaN(trade.tmPrice.toNumber()) ? trade.tmPrice : "-";
+          price2 = trade.mtPrice && !isNaN(trade.mtPrice.toNumber()) ? trade.mtPrice : "-";
       } else {
-          price1 = trade.mtPrice ? trade.mtPrice : null;
-          price2 = trade.tmPrice ? trade.tmPrice : null;
+          price1 = trade.mtPrice && !isNaN(trade.mtPrice.toNumber()) ? trade.mtPrice : "-";
+          price2 = trade.tmPrice && !isNaN(trade.tmPrice.toNumber()) ? trade.tmPrice : "-";
       }
-
-      return (this.state.priceInverted ? price1 : price2) + "";
+      if (price1 !== "-" || price2 !== "-") {
+        return (this.state.priceInverted ? price1.toNumber().toFixed(4) : price2.toNumber().toFixed(4)) + "";
+      } else {
+        return "-";
+      }
   }
 
   formatDate(timestamp) {
